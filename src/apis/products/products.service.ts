@@ -24,7 +24,7 @@ export class ProductsService {
         }
 
         const product = await this.productModel.create(createProductDto);
-        
+
         // Update category count
         await this.categoryModel.findByIdAndUpdate(
             createProductDto.categoryId,
@@ -53,15 +53,15 @@ export class ProductsService {
 
     async getAllProducts(filterDto: ProductFilterDto): Promise<ResponseType> {
         const { category, stockAvailability, search, page = '1', limit = '10' } = filterDto;
-        
+
         // Convert string parameters to integers with validation
         const pageNum = parseInt(page, 10) || 1;
         const limitNum = parseInt(limit, 10) || 10;
-        
+
         // Validate converted values
         if (pageNum < 1) throw new Error('Page must be greater than 0');
         if (limitNum < 1 || limitNum > 100) throw new Error('Limit must be between 1 and 100');
-        
+
         let query: any = { isActive: true };
 
         // Category filter
@@ -86,7 +86,7 @@ export class ProductsService {
         }
 
         const skip = (pageNum - 1) * limitNum;
-        
+
         const [products, total] = await Promise.all([
             this.productModel.find(query)
                 .populate('categoryId', 'name icon')
@@ -165,7 +165,7 @@ export class ProductsService {
                 throw new NotFoundException(PRODUCT_RES_MESSAGES.CATEGORY_NOT_FOUND);
             }
 
-            // Update counts for old and new categories
+            // Update counts in category
             await Promise.all([
                 this.categoryModel.findByIdAndUpdate(product.categoryId, { $inc: { count: -1 } }),
                 this.categoryModel.findByIdAndUpdate(updateProductDto.categoryId, { $inc: { count: 1 } })
