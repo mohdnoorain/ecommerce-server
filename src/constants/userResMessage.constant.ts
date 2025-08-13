@@ -1,0 +1,15 @@
+export enum USER_RES_MESSAGES {
+    NOT_EXIST = "Account does not exist with this email or phone.",
+    ALREADY_EXIST = "Account already exists with this email.",
+    CREATED = "Account created successfully.",
+    INVALID_CREDS = "Invalid credentials.",
+    LOGIN = "Login successfully.",
+    LOGOUT = "Logout successfully.",
+    OTP_EMAIL_SEND = "Mail send successfully.",
+    OTP_TEXT_SEND = "SMS send successfully.",
+    EMAIL_NOT_VERIFIED = "This email is not verified, plz try using phone number.",
+    PHONE_NOT_VERIFIED = "This phone number is not verified, plz try using email.",
+    INVALID_OTP = "Invalid otp.",
+    PASSWORD_CHANGED = "Password changes successfully.",
+    OTP_EXPIRED = "OTP expired.",
+}
